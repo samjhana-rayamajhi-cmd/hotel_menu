@@ -1,0 +1,440 @@
+/* ===================================================
+   Dang Valley — Elegant Dark & Gold Menu Theme
+   =================================================== */
+
+:root {
+  --color-bg: #121212;
+  --color-bg-soft: #1a1a1a;
+  --color-card: #1e1c18;
+  --color-header: #0c0c0c;
+  --color-gold: #d4af37;
+  --color-gold-light: #f1d27a;
+  --color-text: #f3ede0;
+  --color-muted: #b9b0a0;
+  --color-border: rgba(212, 175, 55, 0.25);
+  --color-veg: #4caf50;
+  --color-nonveg: #e0524b;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --max-width: 1000px;
+  --nav-height: 60px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  background: linear-gradient(180deg, var(--color-header), #161412);
+  color: var(--color-text);
+  padding: 48px 24px 36px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.brand-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.4));
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  letter-spacing: 1px;
+  color: var(--color-gold-light);
+  text-shadow: 0 2px 12px rgba(212, 175, 55, 0.25);
+}
+
+.tagline {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.header-rule {
+  width: 90px;
+  height: 2px;
+  margin: 18px auto 0;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* ---------- Category nav ---------- */
+.category-nav {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 14px 16px;
+  background: rgba(12, 12, 12, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: var(--nav-height);
+  scrollbar-width: thin;
+}
+
+.category-link {
+  flex: 0 0 auto;
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.category-link:hover {
+  color: var(--color-gold-light);
+  border-color: var(--color-border);
+}
+
+.category-link.active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #1a1505;
+  font-weight: 600;
+}
+
+/* ---------- Menu container ---------- */
+.menu-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 50px 20px 80px;
+}
+
+.menu-section {
+  margin-bottom: 64px;
+  scroll-margin-top: calc(var(--nav-height) + 12px);
+}
+
+.menu-section-title {
+  font-size: 1.8rem;
+  color: var(--color-gold-light);
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.menu-section-rule {
+  width: 60px;
+  height: 2px;
+  margin: 0 auto 32px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 20px;
+}
+
+.menu-item {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.menu-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+}
+
+.menu-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.menu-item-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text);
+}
+
+.diet-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.diet-dot.veg {
+  background: var(--color-veg);
+  border: 1px solid var(--color-veg);
+}
+
+.diet-dot.nonveg {
+  background: var(--color-nonveg);
+  border: 1px solid var(--color-nonveg);
+}
+
+.menu-item-price {
+  font-weight: 700;
+  color: var(--color-gold);
+  white-space: nowrap;
+}
+
+.menu-item-desc {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.menu-item.spicy::after {
+  content: "🌶️ Spicy";
+  font-size: 0.75rem;
+  color: var(--color-nonveg);
+}
+
+/* ---------- Back to top ---------- */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: #1a1505;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 20;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--color-header);
+  color: var(--color-muted);
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 0.85rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.site-footer a {
+  color: var(--color-gold);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-note {
+  margin-top: 6px;
+  opacity: 0.85;
+}
+
+/* ---------- QR page ---------- */
+.qr-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--color-bg);
+}
+
+.qr-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 36px;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+}
+
+.qr-card h1 {
+  color: var(--color-gold-light);
+  margin-bottom: 4px;
+}
+
+.qr-card .tagline {
+  color: var(--color-gold);
+  margin-bottom: 24px;
+}
+
+/* ---- QR generator form ---- */
+.qr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 26px;
+}
+
+.qr-label {
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.qr-input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-soft);
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.qr-input:focus {
+  border-color: var(--color-gold);
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.btn {
+  flex: 1 1 auto;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--color-gold);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--color-gold);
+  color: #1a1505;
+}
+
+.btn-primary:hover {
+  background: var(--color-gold-light);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-gold);
+}
+
+.btn-secondary:hover {
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- QR display ---- */
+#qrcode,
+.qrcode-large {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 16px;
+  background: var(--color-text);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.qr-instruction {
+  color: var(--color-gold-light);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 16px;
+  letter-spacing: 0.4px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .site-header {
+    padding: 36px 16px 28px;
+  }
+
+  .brand h1 {
+    font-size: 1.8rem;
+  }
+
+  .category-nav {
+    justify-content: flex-start;
+    padding: 12px 12px;
+  }
+
+  .category-link {
+    padding: 7px 16px;
+    font-size: 0.85rem;
+  }
+
+  .menu-section-title {
+    font-size: 1.5rem;
+  }
+
+  .menu-container {
+    padding: 36px 16px 60px;
+  }
+}

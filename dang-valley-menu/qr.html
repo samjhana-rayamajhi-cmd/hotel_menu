@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dang Valley | QR Code Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+  <div class="qr-page">
+    <div class="qr-card">
+      <span class="brand-icon" style="font-size:2.4rem;">🏞️</span>
+      <h1>Dang Valley</h1>
+      <p class="tagline">Hotel &amp; Restaurant</p>
+
+      <form id="qrForm" class="qr-form">
+        <label for="urlInput" class="qr-label">Menu URL</label>
+        <input
+          id="urlInput"
+          type="url"
+          class="qr-input"
+          placeholder="https://your-domain.com/index.html"
+          required
+        />
+        <div class="btn-row">
+          <button type="submit" class="btn btn-primary">Generate QR Code</button>
+          <button type="button" id="downloadBtn" class="btn btn-secondary" disabled>
+            Download PNG
+          </button>
+        </div>
+      </form>
+
+      <div id="qrcode" class="qrcode-large" aria-label="QR code linking to the digital menu"></div>
+
+      <p class="qr-instruction">Scan to view our menu</p>
+    </div>
+  </div>
+
+  <script>
+    const urlInput = document.getElementById("urlInput");
+    const qrForm = document.getElementById("qrForm");
+    const qrContainer = document.getElementById("qrcode");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    const QR_SIZE = 280;
+    let qrCode = null;
+
+    // Default to the menu page relative to wherever this site is hosted.
+    const defaultMenuUrl = new URL("index.html", window.location.href).toString();
+    urlInput.value = defaultMenuUrl;
+
+    function generateQR(text) {
+      qrContainer.innerHTML = "";
+
+      qrCode = new QRCode(qrContainer, {
+        text: text,
+        width: QR_SIZE,
+        height: QR_SIZE,
+        colorDark: "#121212",
+        colorLight: "#f3ede0",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+
+      downloadBtn.disabled = false;
+    }
+
+    qrForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const url = urlInput.value.trim();
+      if (!url) return;
+      generateQR(url);
+    });
+
+    downloadBtn.addEventListener("click", () => {
+      const canvas = qrContainer.querySelector("canvas");
+      if (!canvas) return;
+
+      const link = document.createElement("a");
+      link.download = "dang-valley-menu-qr.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+
+    // Generate a QR code for the default menu URL on load.
+    generateQR(defaultMenuUrl);
+  </script>
+</body>
+</html>
