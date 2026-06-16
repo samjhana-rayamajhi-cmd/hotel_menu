@@ -64,11 +64,6 @@ function dietDot(isVeg) {
   return `<span class="diet-dot ${isVeg ? "veg" : "nonveg"}" title="${isVeg ? "Vegetarian" : "Non-Vegetarian"}"></span>`;
 }
 
-function whatsappOrderLink(itemName) {
-  const message = `Hi, I would like to order: ${itemName}`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-}
-
 /* ---------- Rendering ---------- */
 
 function renderCategoryNav() {
@@ -107,13 +102,13 @@ function renderMenu() {
       card.className = "menu-item" + (item.spicy ? " spicy" : "");
       card.innerHTML = `
         <div class="menu-item-top">
-          <span class="menu-item-name">${dietDot(item.veg)}${item.name}</span>
+          <label class="menu-item-name">
+            <input type="checkbox" class="item-select" data-name="${item.name}" data-price="${item.price}" />
+            ${dietDot(item.veg)}${item.name}
+          </label>
           <span class="menu-item-price">Rs. ${item.price}</span>
         </div>
         <p class="menu-item-desc">${item.description}</p>
-        <a class="whatsapp-btn" href="${whatsappOrderLink(item.name)}" target="_blank" rel="noopener">
-          📲 Order on WhatsApp
-        </a>
       `;
       grid.appendChild(card);
     });
@@ -162,9 +157,50 @@ function initBackToTop() {
   });
 }
 
+/* ---------- Order selection: pick multiple items, send one WhatsApp order ---------- */
+
+function initOrderSelection() {
+  const orderBar = document.getElementById("orderBar");
+  const orderCount = document.getElementById("orderCount");
+  const orderBtn = document.getElementById("orderWhatsappBtn");
+  if (!orderBar || !orderCount || !orderBtn) return;
+
+  const selectedItems = new Map(); // name -> price
+
+  function updateOrderBar() {
+    const count = selectedItems.size;
+    orderBar.classList.toggle("visible", count > 0);
+    orderCount.textContent = `${count} item${count === 1 ? "" : "s"} selected`;
+
+    if (count === 0) return;
+
+    const lines = Array.from(selectedItems.entries()).map(
+      ([name, price]) => `• ${name} — Rs. ${price}`
+    );
+    const total = Array.from(selectedItems.values()).reduce((sum, price) => sum + price, 0);
+    const message = `Hi, I would like to order:\n${lines.join("\n")}\n\nTotal: Rs. ${total}`;
+
+    orderBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  }
+
+  document.addEventListener("change", (e) => {
+    if (!e.target.classList.contains("item-select")) return;
+    const { name, price } = e.target.dataset;
+
+    if (e.target.checked) {
+      selectedItems.set(name, Number(price));
+    } else {
+      selectedItems.delete(name);
+    }
+
+    updateOrderBar();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderCategoryNav();
   renderMenu();
   initScrollSpy();
   initBackToTop();
+  initOrderSelection();
 });
