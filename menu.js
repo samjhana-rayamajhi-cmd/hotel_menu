@@ -9,6 +9,7 @@ const menuData = [
     items: [
       { name: "Chicken Momo (Steamed)", description: "Classic Nepali dumplings filled with minced chicken, served with tomato achar.", price: 220, veg: false },
       { name: "Veg Momo (Steamed)", description: "Dumplings filled with seasonal vegetables and paneer.", price: 190, veg: true },
+      { name: "Momo", description: "Steamed Nepali dumplings served with tomato achar.", price: 150, veg: true },
       { name: "Chicken Sekuwa", description: "Smoky grilled chicken skewers marinated in Nepali spices.", price: 320, veg: false, spicy: true },
       { name: "Paneer Tikka", description: "Cottage cheese cubes marinated in yogurt and spices, grilled in tandoor.", price: 260, veg: true },
       { name: "Crispy Chilli Potato", description: "Fried potato tossed in a spicy chilli-garlic sauce.", price: 180, veg: true, spicy: true },
@@ -52,12 +53,20 @@ const menuData = [
 
 /* ---------- Helpers ---------- */
 
+// WhatsApp ordering number (country code + number, no spaces or "+")
+const WHATSAPP_NUMBER = "9779817435846";
+
 function slugify(text) {
   return text.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
 function dietDot(isVeg) {
   return `<span class="diet-dot ${isVeg ? "veg" : "nonveg"}" title="${isVeg ? "Vegetarian" : "Non-Vegetarian"}"></span>`;
+}
+
+function whatsappOrderLink(itemName) {
+  const message = `Hi, I would like to order: ${itemName}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 /* ---------- Rendering ---------- */
@@ -102,6 +111,9 @@ function renderMenu() {
           <span class="menu-item-price">Rs. ${item.price}</span>
         </div>
         <p class="menu-item-desc">${item.description}</p>
+        <a class="whatsapp-btn" href="${whatsappOrderLink(item.name)}" target="_blank" rel="noopener">
+          📲 Order on WhatsApp
+        </a>
       `;
       grid.appendChild(card);
     });
